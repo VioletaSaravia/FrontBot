@@ -1,12 +1,14 @@
-from src.data import *
-from src.driver import nueva_prueba
 import csv
-import os
-from datetime import datetime
 import logging
+import os
 import time
+from datetime import datetime
 from multiprocessing import Process
 from time import sleep
+
+from src.data import *
+from src.driver import nueva_prueba
+
 
 @dataclass
 class Prueba:
@@ -118,7 +120,7 @@ class SetPruebas:
             if len(procesos) == self.paralelo:
                 [p.join() for p in procesos]
                 procesos = []
-				
+
                 time.sleep(self.frecuencia)
 
             p = Process(target=self.base.parse, args=[usuarix])

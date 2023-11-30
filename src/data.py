@@ -1,5 +1,6 @@
-from enum import Enum
 from dataclasses import dataclass, field
+from enum import Enum
+
 
 class Web(Enum):
     capar = "http://181.209.31.158/"
@@ -84,9 +85,11 @@ class Boton(InstruccionBase):
 class Link(InstruccionBase):
     url: str
 
+
 @dataclass
 class Esperar(InstruccionBase):
     tiempo: int
+
 
 @dataclass
 class Captura(InstruccionBase):

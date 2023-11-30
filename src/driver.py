@@ -1,25 +1,26 @@
-from sys import platform
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.chrome.options import Options as chromeOptions
-from selenium.webdriver.firefox.options import Options as firefoxOptions
-from selenium.webdriver.edge.options import Options as edgeOptions
-from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support.expected_conditions import presence_of_element_located as present
-from selenium.webdriver.support.expected_conditions import presence_of_all_elements_located as all_present
-from selenium.webdriver.support.expected_conditions import visibility_of_any_elements_located as any_visible
-from selenium.webdriver.support.expected_conditions import element_to_be_clickable as clickable
-
-from src.data import *
 import os
 import time
+from sys import platform
+
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options as chromeOptions
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.edge.options import Options as edgeOptions
+from selenium.webdriver.firefox.options import Options as firefoxOptions
+from selenium.webdriver.support.expected_conditions import element_to_be_clickable as clickable
+from selenium.webdriver.support.expected_conditions import presence_of_all_elements_located as all_present
+from selenium.webdriver.support.expected_conditions import presence_of_element_located as present
+from selenium.webdriver.support.expected_conditions import visibility_of_any_elements_located as any_visible
+from selenium.webdriver.support.wait import WebDriverWait
+
+from src.data import *
 
 WAIT_TIME = 20
 
 
-def nueva_prueba(prueba): #Prueba):
+def nueva_prueba(prueba):  # Prueba):
     executable = ""
     options = None
 
@@ -143,7 +144,7 @@ def nueva_prueba(prueba): #Prueba):
             print(path)
             elements = WebDriverWait(self, WAIT_TIME).until(
                 any_visible((By.XPATH, path)))
-            
+
             # elements = self.find_elements(By.XPATH, path)
             print(elements)
 

@@ -1,14 +1,16 @@
-import sys
-import os
 import csv
-from src.parser import Prueba, SetPruebas
-from src.data import *
+import os
+import sys
+
 from PyQt5.QtWidgets import (
     QApplication, QMainWindow, QGridLayout,
     QPushButton, QComboBox, QWidget,
     QTreeWidget, QTreeWidgetItem,
     QLabel, QHBoxLayout, QSpinBox,
     QGroupBox, QCheckBox)
+
+from src.data import *
+from src.parser import Prueba, SetPruebas
 
 
 class VentanaPrincipal(QMainWindow):
@@ -163,13 +165,13 @@ class VentanaPrincipal(QMainWindow):
 
         usuarixs: list[str] = []
         for box in self.checkboxes:
-            if(box.isChecked()):
+            if (box.isChecked()):
                 usuarixs.append(box.text())
         usuarixs_seleccionadxs: list[Usuarix] = [Usuarix(correo=x) for x in usuarixs]
 
         SetPruebas(base=Prueba(path=f"{dirs}\\{args}.csv",
                                explorador=Explorador[explorador.lower()],
-                               web=Web[web.lower()], oculto=self.ocultar.isChecked(), ), # TODO botón ocultar
+                               web=Web[web.lower()], oculto=self.ocultar.isChecked(), ),  # TODO botón ocultar
                    usuarixs=usuarixs_seleccionadxs,
                    paralelo=paralelo,
                    repeticiones=repeticiones,
