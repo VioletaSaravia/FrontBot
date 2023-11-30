@@ -1,31 +1,33 @@
-# sicvg-testeo-ui
+# FrontBot
 
-## Requisitos
+## Requirements
 
-- Python 3.10+ (No funciona en 3.9)
+- Python 3.10+
 - Chrome/Firefox/Edge
 - Chromedriver ([Link](https://chromedriver.chromium.org/))
 - Geckodriver ([Link](https://github.com/mozilla/geckodriver/releases))
 - Edgedriver ([Link](https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver/))
 
-Poner los drivers en la carpeta *include/*.
+Add drivers to the *include/* folder.
 
-## Uso
+## Usage
+
+Open a terminal on the FrontBot folder and type:
 
 ```powershell
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-python -m venv .venv # Luego cerrar y abrir la terminal para cambiar interpreter
+python -m venv .venv
 pip install -r requirements.txt
 python run.py
 ```
 
-Asegurarse de correr todos los comandos con el entorno virtual activado:
+Make sure you run all pip commands with the virtual environment activated:
 
-![Ejemplo en VSCode](/static/venv_terminal.png)
+![VSCode example](/static/venv_terminal.png)
 
-Las pruebas son archivos excel que van dentro de la carpeta *tests/*. Cada fila corresponde a una acción; la primer columna es la función y el resto son los argumentos. Una vez terminada, las capturas de la prueba van a la carpeta *logs*.
+Tests are csv files that go on the *tests/* folder. Each row corresponds to an instruction: the first row is its name and the rest are parameters. Once finished, logs and screenshots go on the *logs/* folder.
 
-### Acciones
+### Instructions (TODO)
 
 | Acción     | Valor 1                             | Valor 2                                 | Valor 3 |
 | ---------- | ----------------------------------- | --------------------------------------- | ------- |
