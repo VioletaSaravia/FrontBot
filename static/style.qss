@@ -1,0 +1,35 @@
+VentanaPrincipal {
+    background-image: url('static/bg.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+QPushButton {
+    padding: .375em .75em;
+    background-color: #4CBAEB;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 0.25em;
+    color: #f5f5f5;
+    font-family: Helvetica,Roboto,sans-serif;
+    font-size: 24px;
+}
+QPushButton::hover {
+    background-color: #2AADE7;
+}
+QPushButton::pressed {
+    background-color: #2AADE7;
+    border-width: 1px;
+    border-color: #A2D1E6;
+}
+QLabel, QSpinBox {
+    font-size: 18px;
+    font-family: Helvetica,Roboto,sans-serif;
+}
+QRadioButton, QComboBox {
+    font-size: 18px;
+    font-family: Helvetica,Roboto,sans-serif;
+}
+QTreeWidget {
+    font-size: 18px;
+    font-family: Helvetica,Roboto,sans-serif;
+}

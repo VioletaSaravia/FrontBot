@@ -1,0 +1,72 @@
+Acción,Valor 1,Valor 2,Valor 3
+menu,Programa: Acompañar,Ingreso de solicitud,
+formulario,desplegable,Area de trabajo,DTRyBD
+formulario,desplegable,Fuente de ingreso,Operativo territorial
+solapa,Personas en situación de violencia,,
+boton,Agregar,,
+boton,lapiz,,
+formulario,input,Nombres,Maria
+formulario,input,Apellidos,de Tal
+formulario,desplegable,Genero,Mujer
+formulario,desplegable,Tipo de documento,DNI
+formulario,input,Documento,19085803
+formulario,input,Fecha nacimiento (dd/mm/yyyy),23/07/1994
+formulario,desplegable,Provincia,Buenos Aires
+formulario,desplegable,Localidad,LA PALA
+boton,Aceptar,,
+formulario,desplegable,Declara realizar alguna actividad por la que recibe dinero,No
+formulario,desplegable,Cobra jubilación/pensión,No
+formulario,desplegable,Declara percibir un programa/prestación/asignación estatal,No
+formulario,desplegable,Declara que sus ingresos son suficientes para cubrir sus gastos,No
+formulario,desplegable,Tipo de vivienda,Casa/departamento
+formulario,desplegable,Relación con la vivienda,Vivienda cedida/prestada por un tiempo limitado
+solapa,Personas agresoras,,
+boton,Agregar,,
+formulario,desplegable,Género,Mujer
+solapa,Situaciones de violencia,,
+boton,Agregar,,
+formulario,desplegable,Persona en situación de violencia,#1 Maria de Tal
+formulario,desplegable,Personas agresoras,#1
+formulario,desplegable,Modalidad,Violencia domestica
+formulario,desplegable,Tipo de violencia,Violencia física
+formulario,desplegable,Conductas,Patadas
+formulario,desplegable,Última vez que ocurrió ese tipo de violencia/esas conductas,Hace menos de 6 meses
+formulario,desplegable,Aumento en la intensidad de la violencia en el último mes,Si
+formulario,desplegable,Percepción de peligro de muerte en el último mes.,Si
+formulario,desplegable,Efectos en la salud/integridad física/mental,Si
+formulario,opciones,Efectos en la salud/integridad física/mental,Fracturas
+formulario,opciones,Efectos en la salud/integridad física/mental,Desgarros
+formulario,opciones,Efectos en la salud/integridad física/mental,Hematomas
+formulario,opciones,Vinculo con la persona agresora,Pareja actual
+boton,Guardar,,
+boton,Aceptar,,
+solapa,Notas,,
+boton,Agregar,,
+formulario,input,Nota nueva,"Hola, qué tal. Chau,"
+boton,Guardar,,
+captura,,,
+boton,Aceptar,,
+solapa,Programa Acompañar,,
+formulario,input,CUIL,20190858031
+boton,Guardar,,
+captura,,,
+boton,Aceptar,,
+formulario,input,CBU,2850590940090418135201
+boton,Guardar,,
+captura,,,
+boton,Aceptar,,
+formulario,input,Nombre del banco,Pirulo
+boton,Guardar,,
+captura,,,
+boton,Aceptar,,
+formulario,desplegable,La persona exhibió su documento de identidad,Si
+boton,Guardar,,
+captura,,,
+boton,Aceptar,,
+formulario,input,Número de cuenta,1234
+boton,Guardar,,
+captura,,,
+boton,Aceptar,,
+formulario,desplegable,Tipo de cuenta,Cuenta corriente
+boton,Enviar a revisión,,
+captura,,,
