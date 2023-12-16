@@ -2,6 +2,26 @@ from dataclasses import dataclass, field
 from enum import Enum
 
 
+class Action(Enum):
+    click = 1
+    input = 2
+    multi = 3
+
+
+@dataclass
+class Instruction:
+    name: str
+    xpath: [str]
+    action: [Action]
+
+
+@dataclass
+class InstructionSet:
+    instructions: [Instruction]
+
+
+# --------------------------- VIEJO -------------------
+
 class Web(Enum):
     capar = "http://181.209.31.158/"
     test = "http://172.26.241.34"

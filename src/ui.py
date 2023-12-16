@@ -79,7 +79,7 @@ class VentanaPrincipal(QMainWindow):
 
         self.checkboxes: list[QCheckBox] = []
 
-        with open("include\\usuaries.csv", 'r', encoding='utf-8') as lista_usuarixs:
+        with open("include/usuaries.csv", 'r', encoding='utf-8') as lista_usuarixs:
             for usuarix in csv.DictReader(lista_usuarixs):
                 checkbox = QCheckBox(usuarix['correo'])
                 layout.addWidget(checkbox)

@@ -74,7 +74,7 @@ class Prueba:
 
         prueba_time = datetime.now()
         for instruccion in login + self.instrucciones:
-            time = datetime.now()
+            runtime = datetime.now()
             try:
                 match instruccion:
                     case Link():
@@ -93,13 +93,13 @@ class Prueba:
                         sleep(instruccion.tiempo)
             except Exception as e:
                 logging.error(
-                    f'Instrucción: {instruccion.__str__()} devolvió {type(e).__name__}:\n {str(e)}')
+                    f'Instruction: {instruccion.__str__()} returned {type(e).__name__}:\n {str(e)}')
                 break
             else:
-                time = (datetime.now() - time).total_seconds()
-                logging.info(f"Instrucción: {instruccion.__str__()} ejecutada en {time:.2f} segundos")
+                runtime = (datetime.now() - runtime).total_seconds()
+                logging.info(f"Instruction: {instruccion.__str__()} executed in {runtime:.2f} seconds")
 
-        logging.info(f"Duración final: {(datetime.now() - prueba_time).total_seconds():.2f} segundos")
+        logging.info(f"Final duration: {(datetime.now() - prueba_time).total_seconds():.2f} seconds")
         logging.shutdown()
         driver.quit()
         return
