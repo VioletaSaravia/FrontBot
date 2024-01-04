@@ -14,10 +14,18 @@ class Action(Enum):
 class Instruction:
     xpath: [str]
     action: [Action]
+    param_count: int
 
-    def __init__(self, xpath: [str], action: [str]):
+    def __init__(self, xpath: [str], action: [Action]):
         self.xpath = xpath
         self.action = action
+        self.param_count = 0
+        for i in xpath:
+            self.param_count += i.count('%')
+
+        for i in action:
+            if i == Action.input:
+                self.param_count += 1
 
 
 # TODO alises tipo boton[nombre, xpath]
