@@ -10,7 +10,6 @@ from PyQt5.QtWidgets import (
     QGroupBox, QCheckBox)
 
 from src.data import *
-from src.parser import Prueba, SetPruebas
 
 
 class VentanaPrincipal(QMainWindow):
@@ -35,21 +34,11 @@ class VentanaPrincipal(QMainWindow):
         self.pruebas = self._listar_pruebas()
         widgets.append(self.pruebas)
 
-        # Lista de usuarixs
-        self.usuarixs = self._listar_usuarixs()
-        widgets.append(self.usuarixs)
-
         # Explorador
         self.explorador = QComboBox()
-        for item in Explorador:
+        for item in WebBrowser:
             self.explorador.addItem(item.name)
         widgets.append(self.explorador)
-
-        # Web
-        self.web = QComboBox()
-        for item in Web:
-            self.web.addItem(item.name)
-        widgets.append(self.web)
 
         # Procesos
         self.procesos = self._listar_procesos()
@@ -71,21 +60,6 @@ class VentanaPrincipal(QMainWindow):
         for x, w in zip(range(1, len(widgets) + 1), widgets):
             layout.addWidget(w, x, 0)
         return layout
-
-    def _listar_usuarixs(self):
-        box = QGroupBox("Usuarixs:")
-        layout = QGridLayout()
-        box.setLayout(layout)
-
-        self.checkboxes: list[QCheckBox] = []
-
-        with open("include/usuaries.csv", 'r', encoding='utf-8') as lista_usuarixs:
-            for usuarix in csv.DictReader(lista_usuarixs):
-                checkbox = QCheckBox(usuarix['correo'])
-                layout.addWidget(checkbox)
-                self.checkboxes.append(checkbox)
-
-        return box
 
     def _listar_procesos(self):
         procesos = QWidget()
@@ -151,31 +125,11 @@ class VentanaPrincipal(QMainWindow):
         return widget
 
     def ejecutar(self):
-        dirs = self.pruebas.selectedItems()[0].parent().text(0)
-        args = self.pruebas.selectedItems()[0].text(0)
-
-        if not args:
-            return RuntimeError("No hay prueba seleccionada.")
-
         explorador = str(self.explorador.currentText())
         web = str(self.web.currentText())
         repeticiones = int(self.repeticiones_input.text())
         frecuencia = int(self.frecuencia_input.text())
         paralelo = int(self.procesos_input.text())
-
-        usuarixs: list[str] = []
-        for box in self.checkboxes:
-            if (box.isChecked()):
-                usuarixs.append(box.text())
-        usuarixs_seleccionadxs: list[Usuarix] = [Usuarix(correo=x) for x in usuarixs]
-
-        SetPruebas(base=Prueba(path=f"{dirs}\\{args}.csv",
-                               explorador=Explorador[explorador.lower()],
-                               web=Web[web.lower()], oculto=self.ocultar.isChecked(), ),  # TODO botón ocultar
-                   usuarixs=usuarixs_seleccionadxs,
-                   paralelo=paralelo,
-                   repeticiones=repeticiones,
-                   frecuencia=frecuencia).ejecutar_todo()
 
         return
 

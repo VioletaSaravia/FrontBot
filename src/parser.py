@@ -1,10 +1,9 @@
-import csv
 import logging
 import os
 import time
+from dataclasses import field
 from datetime import datetime
 from multiprocessing import Process
-from time import sleep
 
 from src.data import *
 from src.driver import nueva_prueba
@@ -13,48 +12,14 @@ from src.driver import nueva_prueba
 @dataclass
 class Prueba:
     path: str
-    explorador: Explorador
-    web: Web
+    explorador: WebBrowser
     oculto: bool = False
-    instrucciones: list[Instruccion] = field(default_factory=list)
+    instrucciones: InstructionSet = field(default_factory=dict)
 
     def __post_init__(self):
-        pruebacsv = open(f'tests\\{self.path}', 'r', newline='', encoding='utf-8')
-        csv_iter = csv.reader(pruebacsv, delimiter=',')
-        csv_iter.__next__()  # Saltear títulos
+        pass
 
-        saltear = 0
-        for linea in csv_iter:
-            accion = Operador[linea[0]]
-
-            match accion:
-                case Operador.boton:
-                    self.instrucciones.append(Boton(InstruccionArgs(saltear), linea[1]))
-                case Operador.formulario:
-                    self.instrucciones.append(Formulario(
-                        InstruccionArgs(saltear), FormularioTipo[linea[1]], linea[2], linea[3]))
-                # TODO pasar a Macro()
-                case Operador.login:
-                    self.instrucciones.append(Formulario(
-                        InstruccionArgs(saltear), FormularioTipo["input"], 'Correo Electrónico', linea[1]))
-                    self.instrucciones.append(Formulario(
-                        InstruccionArgs(saltear), FormularioTipo["input"], 'Contraseña', linea[2]))
-                    self.instrucciones.append(Boton(InstruccionArgs(saltear), "Entrar"))
-                case Operador.captura:
-                    self.instrucciones.append(Captura(InstruccionArgs(saltear), linea[1] if linea[1] else None))
-                case Operador.menu:
-                    self.instrucciones.append(
-                        Menu(InstruccionArgs(saltear), linea[1], linea[2]))
-                case Operador.solapa:
-                    self.instrucciones.append(Solapa(InstruccionArgs(saltear), linea[1]))
-                case Operador.link:
-                    self.instrucciones.append(Link(InstruccionArgs(saltear), linea[1]))
-                case Operador.esperar:
-                    self.instrucciones.append(Esperar(InstruccionArgs(saltear), int(linea[1])))
-
-        pruebacsv.close()
-
-    def parse(self, usuarix: Usuarix | None = None):
+    def parse(self):
         path = datetime.now().strftime("[%Y-%m-%d %H%M%S]")
 
         logging.basicConfig(
@@ -62,35 +27,15 @@ class Prueba:
             encoding='utf-8',
             level=logging.INFO)
 
-        logging.info(f"Nueva prueba: {self.path} con {self.explorador.name.upper()} en {self.web.name.upper()}")
+        logging.info(f"Nueva prueba:")
 
         driver = nueva_prueba(self)
 
-        login: list[Instruccion] = []
-        if usuarix is not None:
-            login.append(Formulario(InstruccionArgs(), FormularioTipo["input"], 'Correo Electrónico', usuarix.correo))
-            login.append(Formulario(InstruccionArgs(), FormularioTipo["input"], 'Contraseña', usuarix.password))
-            login.append(Boton(InstruccionArgs(), "Entrar"))
-
         prueba_time = datetime.now()
-        for instruccion in login + self.instrucciones:
+        for instruccion in self.instrucciones:
             runtime = datetime.now()
             try:
-                match instruccion:
-                    case Link():
-                        driver.link(instruccion)
-                    case Menu():
-                        driver.menu(instruccion)
-                    case Formulario():
-                        driver.formulario(instruccion)
-                    case Solapa():
-                        driver.solapa(instruccion)
-                    case Boton():
-                        driver.boton(instruccion)
-                    case Captura():
-                        driver.captura(f'log/{path}', instruccion)
-                    case Esperar():
-                        sleep(instruccion.tiempo)
+                driver.action(instruccion)
             except Exception as e:
                 logging.error(
                     f'Instruction: {instruccion.__str__()} returned {type(e).__name__}:\n {str(e)}')
@@ -106,17 +51,15 @@ class Prueba:
 
 
 @dataclass
-class SetPruebas:
+class TestBattery:
     base: Prueba
-    usuarixs: list[Usuarix] = field(default_factory=list[Usuarix])
     paralelo: int = field(default=0)
     repeticiones: int = field(default=1)
     frecuencia: int = field(default=0)
 
     def ejecutar_todo(self):
-        self.usuarixs *= self.repeticiones
         procesos = []
-        for usuarix in self.usuarixs:
+        for usuarix in range(self.paralelo):
             if len(procesos) == self.paralelo:
                 [p.join() for p in procesos]
                 procesos = []

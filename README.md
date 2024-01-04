@@ -30,7 +30,7 @@ Tests are csv files that go on the *tests/* folder. Each row corresponds to an i
 ### Instructions (TODO)
 
 | Acción     | Valor 1                             | Valor 2                                 | Valor 3 |
-| ---------- | ----------------------------------- | --------------------------------------- | ------- |
+|------------|-------------------------------------|-----------------------------------------|---------|
 | login      | usuario                             | contraseña                              |         |
 | menu       | menu                                | submenu                                 |         |
 | solapa     | nombre                              |                                         |         |
