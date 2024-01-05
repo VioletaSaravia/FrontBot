@@ -69,7 +69,7 @@ def nueva_prueba(prueba):
 
         def __init__(self, options, executable: str, set_path: str):
             browser.__init__(self, options=options)  # , executable_path=executable)
-            self.inst_set = load_instruction_set(set_path)
+            self.inst_set = init_instruction_set(set_path)
             self.contador_capturas = 1
 
         def action(self, name: str, *args):
@@ -88,9 +88,9 @@ def nueva_prueba(prueba):
                     element).scroll_by_amount(0, -200).perform()
 
                 match inst.action[i]:
-                    case Action.click:
+                    case WebAction.click:
                         WebDriverWait(self, WAIT_TIME).until(clickable(element)).click()
-                    case Action.input:
+                    case WebAction.input:
                         WebDriverWait(self, WAIT_TIME).until(clickable(element)).send_keys(args[cur_arg])
                         cur_arg += 1  # ???
                     case invalid:

@@ -10,25 +10,46 @@ from src.driver import nueva_prueba
 
 
 @dataclass
+class SingleInstruction:
+    name: str
+    params: [str]
+
+
+@dataclass
+class InstructionList:
+    list: [SingleInstruction]
+
+
+@dataclass
 class Prueba:
-    path: str
     explorador: WebBrowser
     oculto: bool = False
-    instrucciones: InstructionSet = field(default_factory=dict)
+    instruction_set: InstructionSet = field(default_factory=dict)
+    instruction_list: InstructionList
 
     def __post_init__(self):
         pass
 
-    def parse(self):
-        path = datetime.now().strftime("[%Y-%m-%d %H%M%S]")
+    def load_instruction_list(self, path: str):
+        with open(path, 'r', encoding='utf-8') as file:
+            file_list = file.read()
+
+        self.instruction_list = file_list  # TODO
+
+    def load_instruction_set(self, path: str):
+        self.instruction_set = init_instruction_set(path)
+
+    def load_logger(self, log_path: str):
+        date = datetime.now().strftime("[%Y-%m-%d %H%M%S]")
 
         logging.basicConfig(
-            filename=f"log/{path} {os.path.basename(self.path).split('/')[-1][:-4]}.log",
+            filename=f"log/{date} {os.path.basename(log_path).split('/')[-1][:-4]}.log",
             encoding='utf-8',
             level=logging.INFO)
 
         logging.info(f"Nueva prueba:")
 
+    def parse(self):
         driver = nueva_prueba(self)
 
         prueba_time = datetime.now()
